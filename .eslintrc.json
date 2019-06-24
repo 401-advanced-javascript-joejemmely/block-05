@@ -9,6 +9,11 @@
   },
   "parser": "babel-eslint",
   "plugins": ["jest", "react"],
+  "globals": {
+    "shallow": true,
+    "render": true,
+    "mount": true
+  },
   "rules": {
     "arrow-body-style": "off",
     "class-methods-use-this": "off",
