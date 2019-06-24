@@ -9,11 +9,9 @@ import superagent from 'superagent';
 export default function RESTy() {
   const [url, setUrl] = useState('');
   const [method, setMethod] = useState('get');
-  const [header, setHeader] = useState({});
+
   const [body, setBody] = useState('');
-  const [history, setHistory] = useState(
-    JSON.parse(localStorage.getItem('history')) || {}
-  );
+  const [history, setHistory] = useState(JSON.parse(localStorage.getItem('history')) || {});
 
   useEffect(() => {
     localStorage.setItem('history', JSON.stringify(history));
@@ -36,7 +34,7 @@ export default function RESTy() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setHistory(prev => {
+    setHistory((prev) => {
       prev[uuid()] = { url, method };
       return prev;
     });
@@ -47,23 +45,13 @@ export default function RESTy() {
           setResponse(await superagent.get(url));
           break;
         case 'post':
-          setResponse(
-            await superagent
-              .post(url)
-              .send(JSON.parse(body.replace(/\s+/g, '')))
-          );
+          setResponse(await superagent.post(url).send(JSON.parse(body.replace(/\s+/g, ''))));
           break;
         case 'put':
-          setResponse(
-            await superagent.put(url).send(JSON.parse(body.replace(/\s+/g, '')))
-          );
+          setResponse(await superagent.put(url).send(JSON.parse(body.replace(/\s+/g, ''))));
           break;
         case 'patch':
-          setResponse(
-            await superagent
-              .patch(url)
-              .send(JSON.parse(body.replace(/\s+/g, '')))
-          );
+          setResponse(await superagent.patch(url).send(JSON.parse(body.replace(/\s+/g, ''))));
           break;
         case 'delete':
           setResponse(await superagent.delete(url));
@@ -131,11 +119,7 @@ export default function RESTy() {
           `}
         >
           {Object.values(history).map((request, i) => (
-            <li
-              key={Object.keys(history)[i]}
-              id={Object.keys(history)[i]}
-              onClick={handlePopulate}
-            >
+            <li key={Object.keys(history)[i]} id={Object.keys(history)[i]} onClick={handlePopulate}>
               <div>
                 <strong
                   css={css`
@@ -205,7 +189,7 @@ export default function RESTy() {
                   name="method"
                   value="get"
                   onChange={handleMethod}
-                  checked={method == 'get'}
+                  checked={method === 'get'}
                 />
                 <span>GET</span>
               </label>
@@ -214,7 +198,7 @@ export default function RESTy() {
                   type="radio"
                   name="method"
                   value="post"
-                  checked={method == 'post'}
+                  checked={method === 'post'}
                   onChange={handleMethod}
                 />
                 <span>POST</span>
@@ -224,7 +208,7 @@ export default function RESTy() {
                   type="radio"
                   name="method"
                   value="put"
-                  checked={method == 'put'}
+                  checked={method === 'put'}
                   onChange={handleMethod}
                 />
                 <span>PUT</span>
@@ -234,7 +218,7 @@ export default function RESTy() {
                   type="radio"
                   name="method"
                   value="patch"
-                  checked={method == 'patch'}
+                  checked={method === 'patch'}
                   onChange={handleMethod}
                 />
                 <span>PATCH</span>
@@ -244,7 +228,7 @@ export default function RESTy() {
                   type="radio"
                   name="method"
                   value="delete"
-                  checked={method == 'delete'}
+                  checked={method === 'delete'}
                   onChange={handleMethod}
                 />
                 <span>DELETE</span>
@@ -262,7 +246,7 @@ export default function RESTy() {
               placeholder="Raw JSON body"
               onChange={handleBody}
               value={body}
-              disabled={method == 'get' || method == 'delete'}
+              disabled={method === 'get' || method === 'delete'}
               css={css`
                 height: 10em;
                 flex-grow: 1;
