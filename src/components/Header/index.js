@@ -3,6 +3,9 @@
 import React from 'react';
 import { jsx, css } from '@emotion/core';
 
+/**
+ * Header component
+ */
 export default function Header() {
   return (
     <header

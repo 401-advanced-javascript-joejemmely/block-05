@@ -1,0 +1,35 @@
+@startuml block-05
+
+title 'Class'
+
+class App {
+}
+
+class Header {
+}
+
+
+class RESTy {
+  ==state==
+  # url:string
+  # method:string
+  # body:string
+  # history:object
+  # response:object
+  ==methods==
+  +handleUrl()
+  +handleMethod()
+  +handleBody()
+  +handleSubmit()
+  +populate()
+}
+
+class Footer {
+}
+
+
+App --* Header
+App --* RESTy
+App --* Footer
+
+@enduml
