@@ -27,4 +27,11 @@ describe('RESTy', () => {
     input.simulate('change');
     expect(mountedForm.state('method')).toEqual('put');
   });
+
+  test('body state change', () => {
+    const mountedForm = mount(<RESTy />);
+    const input = mountedForm.find('textarea');
+    input.simulate('change', { target: { value: '{"name":"test"}' } });
+    expect(mountedForm.state('body')).toEqual('{"name":"test"}');
+  });
 });
