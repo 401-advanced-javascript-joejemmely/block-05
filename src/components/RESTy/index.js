@@ -6,6 +6,8 @@ import ReactJson from 'react-json-view';
 import uuid from 'uuid';
 import superagent from 'superagent';
 
+import History from './History';
+
 /**
  * RESTy
  */
@@ -84,10 +86,10 @@ export default class RESTy extends React.Component {
     }
   };
 
-  populate = (event) => {
-    this.setState({ url: this.state.history[event.currentTarget.id].url });
-    this.setState({ method: this.state.history[event.currentTarget.id].method });
-    this.setState({ body: this.state.history[event.currentTarget.id].body });
+  populate = (id) => {
+    this.setState({ url: this.state.history[id].url });
+    this.setState({ method: this.state.history[id].method });
+    this.setState({ body: this.state.history[id].body });
   };
 
   render() {
@@ -119,53 +121,7 @@ export default class RESTy extends React.Component {
             }
           `}
         >
-          <h2>History</h2>
-          <ul
-            css={css`
-              margin: 0;
-              list-style: none;
-              padding: 0;
-
-              li {
-                border: 1px groove #ccc;
-                color: #eee;
-                cursor: pointer;
-                display: flex;
-                flex-direction: column;
-                font-size: 0.75em;
-                margin-bottom: 0.5em;
-                padding: 0.33em;
-                border-radius: 3px;
-                background: #2d5986;
-
-                &:hover {
-                  color: #000;
-                  background: #ccc;
-                }
-              }
-            `}
-          >
-            {Object.values(this.state.history).map((request, i) => (
-              <li
-                key={Object.keys(this.state.history)[i]}
-                id={Object.keys(this.state.history)[i]}
-                onClick={this.populate}
-              >
-                <div>
-                  <strong
-                    css={css`
-                      text-transform: uppercase;
-                      font-weight: bold;
-                    `}
-                  >
-                    {request.method}
-                  </strong>
-                </div>
-                <div>{request.url}</div>
-                <div>{request.params}</div>
-              </li>
-            ))}
-          </ul>
+          <History data={this.state.history} populate={this.populate} />
         </aside>
         <div
           css={css`
