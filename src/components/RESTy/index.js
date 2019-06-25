@@ -128,7 +128,6 @@ export default class RESTy extends React.Component {
             display: flex;
             flex-flow: column nowrap;
             flex-grow: 1;
-            height: 100%;
           `}
         >
           <form onSubmit={this.handleSubmit}>
