@@ -24,12 +24,22 @@ class RESTy {
   +populate()
 }
 
+class History {
+  ==props==
+  # data:object
+  # populate:function
+  ==methods==
+  +handleClick()
+}
+
 class Footer {
 }
 
 
 App --* Header
 App --* RESTy
+RESTy --* History
+History "handleClick()" ..> "populate()" RESTy
 App --* Footer
 
 @enduml
